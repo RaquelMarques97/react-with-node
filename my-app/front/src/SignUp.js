@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { SnackbarContent } from '@material-ui/core';
+
+
+
 
 class SignUp extends Component {
     constructor(props) {
@@ -25,7 +31,7 @@ class SignUp extends Component {
     }
 
     handleSubmit = (e) => {
-        
+        console.log('here')
         fetch("/auth/signup",
             {
                 method: 'POST',
@@ -38,12 +44,12 @@ class SignUp extends Component {
             .then(
                 res => this.setState({ "flash": res.flash }),
                 err => this.setState({ "flash": err.flash })
-               
+
             );
-                   
-                  
+
+
         e.preventDefault();
-        
+
     }
 
     render() {
@@ -51,30 +57,36 @@ class SignUp extends Component {
         return (
 
             <div>
-                <div> Sign Up </div>
+                <h1> Sign Up </h1>
                 <h1>{JSON.stringify(this.state, 1, 1)}</h1>
+
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Email</label>
-                        <input type="email" name="email" value={this.state.email} onChange={this.updateDataField}></input>
+                        <TextField type="email" name="email" value={this.state.email} onChange={this.updateDataField}></TextField>
                     </div>
                     <div>
                         <label>password</label>
-                        <input type="text" name="password" value={this.state.password} onChange={this.updateDataField}></input>
+                        <TextField type="text" name="password" value={this.state.password} onChange={this.updateDataField}></TextField>
                     </div>
                     <div>
                         <label>password confirmation</label>
-                        <input type="text" name="passwordconf" value={this.state.passwordconf} onChange={this.updateDataField}></input>
+                        <TextField type="text" name="passwordconf" value={this.state.passwordconf} onChange={this.updateDataField} />
                     </div>
                     <div>
                         <label>Name</label>
-                        <input type="text" name="name" value={this.state.name} onChange={this.updateDataField} ></input>
+                        <TextField type="text" name="name" value={this.state.name} onChange={this.updateDataField} />
                     </div>
                     <div>
                         <label>Last name</label>
-                        <input type="text" name="lastname" value={this.state.lastname} onChange={this.updateDataField} ></input>
+                        <TextField type="text" name="lastname" value={this.state.lastname} onChange={this.updateDataField} />
                     </div>
-                    <input type="submit" value="Submit" />
+
+                    <Button type='submit' variant="outlined" color="primary" >
+                        Submit
+                    </Button>
+                    <SnackbarContent message={this.state.flash} />
+
                 </form>
 
             </div>
